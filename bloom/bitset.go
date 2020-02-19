@@ -131,23 +131,6 @@ func (b *BitSet) Set(i uint64) bool {
 	return true
 }
 
-// Clear bit i to 0
-func (b *BitSet) Clear(i uint64) bool {
-	if i >= b.numBits {
-		return false
-	}
-	b.data[i>>log2WordSize] &^= 1 << (i & (wordSize - 1))
-	return true
-}
-
-// SetTo sets bit i to value
-func (b *BitSet) SetTo(i uint64, value bool) bool {
-	if value {
-		return b.Set(i)
-	}
-	return b.Clear(i)
-}
-
 // wordsNeeded calculates the number of words needed for i bits
 func wordsNeeded(i uint64) uint64 {
 	if i > (Cap() - wordSize + 1) {

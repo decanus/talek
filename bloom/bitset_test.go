@@ -104,18 +104,6 @@ func TestBitSetAndGet(t *testing.T) {
 	}
 }
 
-func TestSetTo(t *testing.T) {
-	b := NewBitSet(1000)
-	b.SetTo(100, true)
-	if !b.Test(100) {
-		t.Errorf("Bit %d is clear, and it shouldn't be.", 100)
-	}
-	b.SetTo(100, false)
-	if b.Test(100) {
-		t.Errorf("Bit %d is set, and it shouldn't be.", 100)
-	}
-}
-
 func TestOutOfBoundsLong(t *testing.T) {
 	b := NewBitSet(64)
 	defer func() {
@@ -126,10 +114,6 @@ func TestOutOfBoundsLong(t *testing.T) {
 	ok := b.Set(1000)
 	if ok {
 		t.Errorf("Improperly set out of bounds bit")
-	}
-	ok = b.Clear(1000)
-	if ok {
-		t.Errorf("Improperly clear out of bounds bit")
 	}
 }
 
@@ -143,10 +127,6 @@ func TestOutOfBoundsClose(t *testing.T) {
 	ok := b.Set(66)
 	if ok {
 		t.Errorf("Improperly set out of bounds bit")
-	}
-	ok = b.Clear(66)
-	if ok {
-		t.Errorf("Improperly clear out of bounds bit")
 	}
 }
 
@@ -169,16 +149,6 @@ func TestNullSet(t *testing.T) {
 		}
 	}()
 	b.Set(66)
-}
-
-func TestNullClear(t *testing.T) {
-	var b *BitSet
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("Clearning bit of null reference should have caused a panic")
-		}
-	}()
-	b.Clear(66)
 }
 
 func TestEqual(t *testing.T) {
